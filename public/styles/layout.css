@@ -19,6 +19,9 @@ body {
   background-color: #f4f1ec;
   font-size: 24px;
 }
+nav span{font-family: "Bungee";
+
+}
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions

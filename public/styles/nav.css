@@ -1,0 +1,33 @@
+
+/* Select the <nav> element and apply CSS styles */
+nav {
+    height: 120px;
+    width: 100%;
+    background-color: #4056A1;
+    color: #FFFFFF;
+    font-family: 'Bungee', sans-serif;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+
+}
+
+/* Style the <span> elements within the <nav> for the default font family */
+nav span {
+    font-family: 'Bungee', sans-serif;
+}
+
+
+.right-content {
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+  }
+  
+ 
+  
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
