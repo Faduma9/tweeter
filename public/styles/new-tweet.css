@@ -45,7 +45,18 @@
   .new-tweet .counter {
     font-size: 14px;
     color: #888;
+     
   }
+.tweet-output-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
   
- 
+ /* CSS mark red if tweet .exceeded-limit */
+  .exceeded-limit {
+    color: red;
+  }
   
