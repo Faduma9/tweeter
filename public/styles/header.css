@@ -1,4 +1,4 @@
-header {
+.main-header {
     height: 400px;
     width: 100%;
     background-color: #e39700;
@@ -8,12 +8,12 @@ header {
     justify-content: center;
 }
 
-header img {
+.main-header img {
     max-width: 100px; 
     max-height: 100px; 
 }
 
-header h2 {
+.main-header h2 {
     margin-top: 20px;
     color: #000; /* Black text color */
 
