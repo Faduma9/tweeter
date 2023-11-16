@@ -12,6 +12,7 @@ $(document).ready(function() {
 
     // Serialize the form data
     const formData = $(this).serialize();
+    console.log(formData);
 
     // Use AJAX to submit a POST request with the serialized data
     $.post('/tweets', formData)
@@ -19,15 +20,16 @@ $(document).ready(function() {
         // Handle the success response as needed
         console.log(response);
 
-      
+        // Fetch and render tweets after posting
         fetchTweets();
-        
-        // Display a success message to the user
+
+       
         alert('Tweet posted successfully!');
       })
       .fail(function(error) {
         // Handle the error response as needed
         console.error(error);
+
         // Display an error message to the user
         alert('Error posting tweet. Please try again.');
       });
@@ -40,6 +42,9 @@ $(document).ready(function() {
       .done(function(tweets) {
         // Render the fetched tweets
         renderTweets(tweets);
+
+        // Apply timeago to the new tweets
+        $(".timestamp").timeago();
       })
       .fail(function(error) {
         // Handle the error response as needed
@@ -49,17 +54,17 @@ $(document).ready(function() {
 
   // Function to create a tweet element dynamically
   const createTweetElement = function(tweet) {
-  
     const $tweet = $(`
       <article class="tweet">
         <header>
+        <img src="${tweet.user.avatars}" alt="Profile Image"> <!-- Use the user's profile image URL -->
           <span class="username">${tweet.user.name}</span>
           <span class="handle">${tweet.user.handle}</span>
         </header>
         <p class="content">${tweet.content.text}</p>
         <footer>
-          <span class="timestamp">${tweet.created_at}</span>
-          <div class="icons">
+        <span class="timestamp" title="${new Date(tweet.created_at).toISOString()}"></span>
+        <div class="icons">
             <button class="icon-button like-button">
               <i class="fas fa-heart"></i>
             </button>
@@ -73,23 +78,26 @@ $(document).ready(function() {
         </footer>
       </article>
     `);
-  
+
     return $tweet;
   };
-  
+
   // Function to render an array of tweets dynamically
-  const renderTweets = function (tweets) {
+  const renderTweets = function(tweets) {
     // Clear the existing tweets in the container before rendering new ones
     $(".tweet-container").empty();
-  
+
     // Loop through the tweets array and append each tweet to the container
     for (const tweet of tweets) {
       const $tweet = createTweetElement(tweet);
       $(".tweet-container").append($tweet);
+
+      // Use timeago to format and update the timestamp
+      $(".timestamp", $tweet).timeago();
     }
   };
-  
-  //tweet data
+
+  // Initial tweet data
   const data = [
     {
       "user": {
@@ -114,7 +122,7 @@ $(document).ready(function() {
       "created_at": 1461113959088
     }
   ];
-    
+
   // Call renderTweets to dynamically render the tweets
   renderTweets(data);
 });
