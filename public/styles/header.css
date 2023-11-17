@@ -6,6 +6,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 
 .main-header img {
@@ -17,13 +18,27 @@
     margin-top: 20px;
     color: #000; /* Black text color */
 
-
 }
 
 
 
 
+@media only screen and (min-width: 1024px) {
+    body {
+        font-family: 'Open Sans', sans-serif; 
+    }
 
+    .maincontainer {
+        display: flex;
+        justify-content: space-between; 
+        margin-top: 120px;
+        grid-gap: 20px;
+        padding: 80px; 
+        border-radius: 8px; 
+    }
+
+
+}
 
 
 

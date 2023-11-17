@@ -32,3 +32,8 @@ nav span{font-family: "Bungee";
   margin: 0 auto;
   background-color: #f4f1ec; /* the same background color as the body element */
 }
+
+/* style for smaller screens (up to 420px) */
+@media only screen and (max-width: 420px) {
+
+}
