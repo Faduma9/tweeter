@@ -7,7 +7,7 @@
 $(document).ready(function() {
   $('form').submit(function(event) {
     const tweetContent = $('#tweet-text').val(); // Get the tweet content
-
+    
     // Validate tweet presence
     if (tweetContent.trim() === '') {
       alert('Tweet content is required.');
@@ -22,6 +22,7 @@ $(document).ready(function() {
       return; // Exit out of the function immediately.
     }
 
+    
     // If validations pass, serialize the form data
     const formData = $(this).serialize();
     console.log(formData);
@@ -54,18 +55,45 @@ $(document).ready(function() {
 const fetchTweets = function() {
   // endpoint to fetch tweets from the server
   $.get('/tweets')
-    .done(function(tweets) {
-      // Render the fetched tweets
-      renderTweets(tweets);
+    .done(function(response) {
+      // Log the response to check its structure
+      console.log('Server response:', response);
 
-      // Apply timeago to the new tweets
+      // Clear the previous tweets
+      $(".tweet-container").empty();
+
+      // Check if the response is an array of tweets
+      if (Array.isArray(response)) {
+        // Iterate over the array and add each tweet to the container
+        response.forEach(function(tweetData) {
+          const $newTweet = createTweetElement(tweetData);
+          $(".tweet-container").prepend($newTweet);
+        });
+      } else {
+        // If the response is a single tweet, add it directly to the container
+        const $newTweet = createTweetElement(response);
+        $(".tweet-container").prepend($newTweet);
+      }
+
+      // Clear the tweet input after a successful tweet submission
+      $('#tweet-text').val('');
+
+      // Update timestamp for all tweets using timeago
       $(".timestamp").timeago();
+
+      // Notify the user of a successful tweet using a less intrusive method
+      alert('Tweet posted successfully!');
     })
     .fail(function(error) {
       // Handle the error response as needed
       console.error(error);
+
+      // Notify the user of an unsuccessful tweet if needed
+      alert('Error posting tweet. Please try again.');
     });
 };
+
+
 
 // Function to create a tweet element dynamically
 const createTweetElement = function(tweet) {
