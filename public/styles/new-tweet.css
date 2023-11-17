@@ -56,7 +56,15 @@
 
   
  /* CSS mark red if tweet .exceeded-limit */
-  .exceeded-limit {
+  .counter.exceeded-limit {
     color: red;
   }
   
+  .new-tweet .error-message-container {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 10px;
+    margin-top: 10px; 
+    display: none; /* Initially hide the error element */
+  }

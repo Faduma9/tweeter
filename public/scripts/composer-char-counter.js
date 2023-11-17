@@ -9,7 +9,7 @@ $(document).ready(function() {
       characterCounter.text(tweetlength);
      
 
-      if (tweetlength > 0) {
+      if (tweetlength < 0 ) {
         characterCounter.addClass("exceeded-limit");
       } else {
         characterCounter.removeClass("exceeded-limit");
