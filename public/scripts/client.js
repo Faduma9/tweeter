@@ -104,7 +104,7 @@ const createTweetElement = function(tweet) {
           <span class="username">${tweet.user.name}</span>
           <span class="handle">${tweet.user.handle}</span>
         </header>
-        <p class="content">${tweet.content.text}</p>
+        <p class="content">${$("<div>").text(tweet.content.text).html()}</p>
         <footer>
         <span class="timestamp" title="${new Date(tweet.created_at).toISOString()}"></span>
         <div class="icons">
