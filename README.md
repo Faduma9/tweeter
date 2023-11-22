@@ -8,8 +8,7 @@ Tweeter is a responsive web application that allows users to post and view tweet
 *Tweets posted*
 ![screenshot](image-1.png)
 *Responsive Design*
-![screenshot](image.png)
-
+![screenshot](image-2.png)
 
 
 
