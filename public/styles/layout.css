@@ -6,12 +6,13 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 /*
- * Global layout stuff
+ * Global layout styles
  */
 
 body {
@@ -19,21 +20,31 @@ body {
   background-color: #f4f1ec;
   font-size: 24px;
 }
-nav span{font-family: "Bungee";
 
+nav span {
+  font-family: "Bungee";
 }
 
 /*
- * Additional CSS can be defined below or in other CSS files, as per instructions
+ * Main content container
  */
 
- main {
+main {
   width: 90%;
   margin: 0 auto;
   background-color: #f4f1ec; /* the same background color as the body element */
 }
 
-/* style for smaller screens (up to 420px) */
+/* Responsive styles for smaller screens (up to 420px) */
 @media only screen and (max-width: 420px) {
+  /* Add your styles for smaller screens here */
+}
 
+/* Responsive styles for screens up to 1024px */
+@media only screen and (max-width: 1024px) {
+  .site-container {
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+  }
 }

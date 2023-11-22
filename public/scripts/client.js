@@ -5,6 +5,7 @@
  */
 
 $(document).ready(function() {
+  console.log('timeago', timeago);
   $('form').submit(function(event) {
     // Hide the error element upon submission
     $('.error-message-container').slideUp();
@@ -21,7 +22,8 @@ $(document).ready(function() {
     // Validate tweet length
     else if (tweetContent.length > 140) {
       //Display error message for tweet exceeding maximum length
-      $('.error-message-container').text('Tweet is too long. Maximum length is 140 characters.').slideDown(); event.preventDefault(); // Stop form submission
+      $('.error-message-container').text('Tweet is too long. Maximum length is 140 characters.').slideDown();
+      event.preventDefault(); // Stop form submission
       return; // Exit out of the function immediately.
     }
 
@@ -35,18 +37,20 @@ $(document).ready(function() {
       .done(function(response) {
         // Handle the success response as needed
         console.log(response);
+        // Reset character counter to 140 in the UI
+        $('.counter').text(140);
 
+        // Clear the tweet input after a successful tweet submission
+        $('#tweet-text').val('');
         // Fetch and render tweets after posting
         fetchTweets();
 
-        alert('Tweet posted successfully!');
       })
       .fail(function(error) {
         // Handle the error response as needed
         console.error(error);
 
         // Display an error message to the user
-        alert('Error posting tweet. Please try again.');
       });
 
     // Prevent the default form submission to avoid page reload
@@ -62,37 +66,21 @@ $(document).ready(function() {
         // Log the response to check its structure
         console.log('Server response:', response);
 
-        // Clear the previous tweets
-        $(".tweet-container").empty();
+
 
         // Check if the response is an array of tweets
         if (Array.isArray(response)) {
-          // Iterate over the array and add each tweet to the container
-          response.forEach(function(tweetData) {
-            const $newTweet = createTweetElement(tweetData);
-            $(".tweet-container").prepend($newTweet);
-          });
-        } else {
-          // If the response is a single tweet, add it directly to the container
-          const $newTweet = createTweetElement(response);
-          $(".tweet-container").prepend($newTweet);
+          renderTweets(response);
         }
 
-        // Clear the tweet input after a successful tweet submission
-        $('#tweet-text').val('');
 
-        // Update timestamp for all tweets using timeago
-        $(".timestamp").timeago();
-
-        // Notify the user of a successful tweet using a less intrusive method
-        alert('Tweet posted successfully!');
       })
       .fail(function(error) {
         // Handle the error response as needed
         console.error(error);
 
         // Notify the user of an unsuccessful tweet if needed
-        alert('Error posting tweet. Please try again.');
+
       });
   };
 
@@ -100,16 +88,22 @@ $(document).ready(function() {
 
   // Function to create a tweet element dynamically
   const createTweetElement = function(tweet) {
-    const $tweet = $(`
+    let timePassed = timeago.format(new Date(tweet.created_at));
+    let $tweet = $(`
       <article class="tweet">
-        <header>
+        <header class="tweetheader"> 
         <img src="${tweet.user.avatars}" alt="Profile Image"> <!-- Use the user's profile image URL -->
+          <div class="user-info">
           <span class="username">${tweet.user.name}</span>
           <span class="handle">${tweet.user.handle}</span>
+          </div>
         </header>
         <p class="content">${$("<div>").text(tweet.content.text).html()}</p>
         <footer>
-        <span class="timestamp" title="${new Date(tweet.created_at).toISOString()}"></span>
+        <time datetime="${new Date(tweet.created_at).toISOString()}">
+      ${timePassed}
+      
+        </time>
         <div class="icons">
             <button class="icon-button like-button">
               <i class="fas fa-heart"></i>
@@ -134,41 +128,16 @@ $(document).ready(function() {
     $(".tweet-container").empty();
 
     // Loop through the tweets array and append each tweet to the container
-    for (const tweet of tweets) {
+    for (let i = tweets.length - 1; i >= 0; i--) {
+      const tweet = tweets[i];
       const $tweet = createTweetElement(tweet);
       $(".tweet-container").append($tweet);
-
-      // Use timeago to format and update the timestamp
-      $(".timestamp", $tweet).timeago();
     }
+
+
   };
 
-  // Initial tweet data
-  const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png",
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd"
-      },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ];
 
   // Call renderTweets to dynamically render the tweets
-  renderTweets(data);
+  fetchTweets();
 });

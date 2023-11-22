@@ -1,7 +1,8 @@
 .main-header {
     height: 400px;
     width: 100%;
-    background-color: #e39700;
+    background-color: #c05a1a;
+background-image: url("https://www.transparenttextures.com/patterns/light-mesh.png");
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,8 +20,13 @@
     color: #000; /* Black text color */
 
 }
+.right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 
-
+}
 
 
 @media only screen and (min-width: 1024px) {

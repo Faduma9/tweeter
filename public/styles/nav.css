@@ -17,11 +17,7 @@ nav span {
 }
 
 
-.right-content {
-    display: flex;
-    justify-content: flex-end; /* Align content to the right */
-  }
-  
+
  
   
   nav {
@@ -29,6 +25,40 @@ nav span {
     top: 0;
     left: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 
+.fa-angles-down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: rgb(241, 4, 24);
+    transition: transform 0.3s ease-in-out;
+    
+  }
+  
+  .right-content:hover .fa-angles-down{
+    animation: up-and-down 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes up-and-down {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(5px);
+    }
+  }
+  
+  
+  
+  @media only screen and (max-width: 1024px) {
+    nav{
+      background-color: transparent ;
+      position: absolute;
+      margin-top: 20px;
+    }
+  }
